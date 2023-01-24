@@ -3,7 +3,6 @@ import time
 import os, glob
 import multiprocessing as mp
 import ssl
-from pathlib import Path
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -38,7 +37,7 @@ class Inverted_Index:
         self.index = dict()
         self.indexedDocuments = None
 
-    def create_index(self, path='/Users/valeriiminuk/Downloads/datasets/aclImdb/test/neg/', threads_num=4):
+    def create_index(self, path='neg/', threads_num=4):
         """
         Generate variables for processing documents simultaneously and initiate process.
         """
@@ -58,10 +57,7 @@ class Inverted_Index:
         """
         Merging products of parallel process
         """
-        # print(self.indexedDocuments[1].items())
-        # print(self.indexedDocuments[2].items())
-        # print(self.indexedDocuments[3].items())
-        # print(self.indexedDocuments[0].items())
+
         for i in range(len(self.indexedDocuments)):
             update_dict = {key: [appearance]
                     if key not in self.index
@@ -137,4 +133,10 @@ if __name__ == '__main__':
     index.create_index()
 
     print("It took %s seconds to create Inverted Index" % (time.time() - start_time))
-    index.search_word('pale baby wow mr')
+
+    while True:
+        inp = input("What are you looking for (enter 'q' to quit): ")
+        if inp == 'q':
+            break
+        else :
+            index.search_word(inp)
