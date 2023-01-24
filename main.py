@@ -37,7 +37,7 @@ class Inverted_Index:
         self.index = dict()
         self.indexedDocuments = None
 
-    def create_index(self, path='neg/', threads_num=4):
+    def create_index(self, path='/neg/', threads_num=4):
         """
         Generate variables for processing documents simultaneously and initiate process.
         """
@@ -131,12 +131,7 @@ if __name__ == '__main__':
     index = Inverted_Index()
     start_time = time.time()
     index.create_index()
+    print("It took %s seconds to create Inverted Index paralelly" % (time.time() - start_time))
+    
 
-    print("It took %s seconds to create Inverted Index" % (time.time() - start_time))
-
-    while True:
-        inp = input("What are you looking for (enter 'q' to quit): ")
-        if inp == 'q':
-            break
-        else :
-            index.search_word(inp)
+    
